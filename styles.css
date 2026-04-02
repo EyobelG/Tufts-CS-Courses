@@ -1,38 +1,33 @@
-body {
+html, body {
     margin: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     background: #f4f6f8;
     overflow: hidden;
 }
 
 header {
     background: white;
-    padding: 12px;
+    padding: 15px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: relative;
     z-index: 10;
 }
 
-h1 {
-    text-align: center;
-    margin: 0;
-    font-size: 1.4rem;
-    color: #2c3e50;
-}
-
 #cy {
-    width: 100%;
-    height: 100vh;
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
-    z-index: 1;
+    right: 0;
+    z-index: 1; /* Keep it below UI elements */
 }
 
-/* Legend - Hover to Reveal */
 #legend-container {
     position: absolute;
-    top: 70px;
+    top: 80px;
     right: 20px;
     z-index: 100;
 }
@@ -46,45 +41,32 @@ h1 {
     backdrop-filter: blur(5px);
     border: 1px solid #e0e0e0;
     width: 160px;
-    
-    /* Fade effect when not in use */
     opacity: 0.3;
     transform: scale(0.95);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    pointer-events: none; /* Allows clicking nodes underneath */
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 #legend-container:hover #legend-content {
     opacity: 1;
     transform: scale(1);
-    pointer-events: auto; /* Becomes clickable when hovered */
+    pointer-events: auto;
 }
 
-/* Info Panel */
 #info-panel {
     position: absolute;
     bottom: 25px;
     left: 25px;
-    width: 280px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 260px;
+    background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     z-index: 100;
     border-left: 6px solid #3e8ede;
-    pointer-events: auto;
 }
 
-#info-panel h3 { margin-top: 0; color: #3e8ede; }
-
-.dot {
-    height: 10px;
-    width: 10px;
-    display: inline-block;
-    border-radius: 50%;
-    margin-right: 8px;
-}
-
+.dot { height: 10px; width: 10px; display: inline-block; border-radius: 50%; margin-right: 8px; }
 .core { background: #3e8ede; }
 .math { background: #8b5a2b; }
 .elect { background: #a67c52; }
@@ -100,7 +82,4 @@ h1 {
     padding: 8px;
     border-radius: 6px;
     font-weight: bold;
-    transition: background 0.2s;
 }
-
-#reset-btn:hover { background: #2970b8; }
