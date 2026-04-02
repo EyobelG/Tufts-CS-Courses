@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
         container: document.getElementById('cy'),
         
         elements: [
-            /* CORE */
+            /* ================= CORE ================= */
             { data: { id: 'cs11', label: 'CS 11\nIntro', type: 'core' }},
             { data: { id: 'cs15', label: 'CS 15\nData Structures', type: 'core' }},
             { data: { id: 'cs40', label: 'CS 40\nMachine', type: 'core' }},
@@ -15,12 +15,14 @@ document.addEventListener('DOMContentLoaded', function(){
             { data: { id: 'cs170', label: 'CS 170\nTheory', type: 'core' }},
             { data: { id: 'cs97', label: 'CS 97\nCapstone I', type: 'core' }},
             { data: { id: 'cs98', label: 'CS 98\nCapstone II', type: 'core' }},
-            /* MATH */
+            
+            /* ================= MATH ================= */
             { data: { id: 'cs61', label: 'CS 61\nDiscrete', type: 'math' }},
             { data: { id: 'calc1', label: 'Calc I', type: 'math' }},
             { data: { id: 'calc2', label: 'Calc II', type: 'math' }},
             { data: { id: 'lin', label: 'Linear Algebra\n(Optional)', type: 'optional' }},
-            /* ELECTIVES */
+            
+            /* ================= ELECTIVES ================= */
             { data: { id: 'cs111', label: 'CS 111\nOperating Systems', type: 'elect' }},
             { data: { id: 'cs118', label: 'CS 118\nCompilers', type: 'elect' }},
             { data: { id: 'cs121', label: 'CS 121\nDistributed Systems', type: 'elect' }},
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
             { data: { id: 'cs150', label: 'CS 150\nCybersecurity', type: 'elect' }},
             { data: { id: 'cs151', label: 'CS 151\nCryptography', type: 'elect' }},
 
-            /* EDGES */
+            /* ================= EDGES ================= */
             { data: { source: 'cs11', target: 'cs15' }},
             { data: { source: 'cs15', target: 'cs40' }},
             { data: { source: 'cs15', target: 'cs160' }},
@@ -132,7 +134,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const infoTitle = document.getElementById('course-title');
     const infoDesc = document.getElementById('course-desc');
 
-    // Interactions
+    /* ================= INTERACTIONS ================= */
+
+    // Hover effect for highlighting immediate connections
     cy.on('mouseover', 'node', e => {
         e.target.addClass('hovered');
         e.target.connectedEdges().addClass('hovered');
@@ -145,26 +149,35 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
+    // Tap/Click to pin the path and show details in the panel
     cy.on('tap', 'node', e => {
         const node = e.target;
+        
+        // Update Side Panel text
         infoTitle.innerText = node.data('label').replace('\n', ' ');
         const pre = node.predecessors('node').length;
         const post = node.successors('node').length;
-        infoDesc.innerHTML = `Prereqs: ${pre} | Leads to: ${post}`;
+        infoDesc.innerHTML = `<strong>Prerequisites:</strong> ${pre} <br> <strong>Future Pathways:</strong> ${post}`;
         
+        // Logical highlighting: Dim everything except the selected path
         const neighbors = node.successors().add(node.predecessors()).add(node);
         cy.elements().addClass('dimmed');
         neighbors.removeClass('dimmed');
         neighbors.edgesWith(neighbors).removeClass('dimmed').addClass('hovered');
     });
 
-    cy.on('tap', e => { if (e.target === cy) reset(); });
+    // Reset view when clicking background
+    cy.on('tap', e => { 
+        if (e.target === cy) reset(); 
+    });
+
+    // Reset button functionality
     document.getElementById('reset-btn').addEventListener('click', reset);
 
     function reset() {
         cy.elements().removeClass('dimmed hovered');
         infoTitle.innerText = "Select a Course";
         infoDesc.innerText = "Click on any node to see its pathways.";
-        cy.fit();
+        cy.fit(); // Zoom to fit all elements
     }
 });

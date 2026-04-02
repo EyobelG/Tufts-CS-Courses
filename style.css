@@ -6,6 +6,8 @@ html, body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
     background: #f4f6f8;
     overflow: hidden;
+    /* Ensure the body acts as the anchor for absolute elements */
+    position: relative; 
 }
 
 header {
@@ -14,24 +16,32 @@ header {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: relative;
     z-index: 10;
+    height: 60px; /* Give it a fixed height or use box-sizing */
+    box-sizing: border-box;
 }
 
 #cy {
     position: absolute;
-    top: 0;
+    /* Start the graph BELOW the header */
+    top: 60px; 
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1; /* Keep it below UI elements */
+    z-index: 1;
+    /* Ensure visibility */
+    display: block;
+    background-color: transparent; 
 }
 
 #legend-container {
     position: absolute;
-    top: 80px;
+    /* Adjust based on the new top of the graph area */
+    top: 75px; 
     right: 20px;
     z-index: 100;
 }
 
+/* Rest of your legend and info-panel code is fine */
 #legend-content {
     background: rgba(255, 255, 255, 0.95);
     padding: 15px;
