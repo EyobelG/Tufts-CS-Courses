@@ -1,10 +1,12 @@
+// Register the layout extension
 cytoscape.use(cytoscapeDagre);
 
 document.addEventListener('DOMContentLoaded', function(){
     const cy = cytoscape({
         container: document.getElementById('cy'),
+        
         elements: [
-            /* CORE */
+            /* ================= CORE ================= */
             { data: { id: 'cs11', label: 'CS 11\nIntro', type: 'core' }},
             { data: { id: 'cs15', label: 'CS 15\nData Structures', type: 'core' }},
             { data: { id: 'cs40', label: 'CS 40\nMachine', type: 'core' }},
@@ -13,12 +15,14 @@ document.addEventListener('DOMContentLoaded', function(){
             { data: { id: 'cs170', label: 'CS 170\nTheory', type: 'core' }},
             { data: { id: 'cs97', label: 'CS 97\nCapstone I', type: 'core' }},
             { data: { id: 'cs98', label: 'CS 98\nCapstone II', type: 'core' }},
-            /* MATH */
+            
+            /* ================= MATH ================= */
             { data: { id: 'cs61', label: 'CS 61\nDiscrete', type: 'math' }},
             { data: { id: 'calc1', label: 'Calc I', type: 'math' }},
             { data: { id: 'calc2', label: 'Calc II', type: 'math' }},
             { data: { id: 'lin', label: 'Linear Algebra\n(Optional)', type: 'optional' }},
-            /* ELECTIVES */
+            
+            /* ================= ELECTIVES ================= */
             { data: { id: 'cs111', label: 'CS 111\nOperating Systems', type: 'elect' }},
             { data: { id: 'cs118', label: 'CS 118\nCompilers', type: 'elect' }},
             { data: { id: 'cs121', label: 'CS 121\nDistributed Systems', type: 'elect' }},
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
             { data: { id: 'cs150', label: 'CS 150\nCybersecurity', type: 'elect' }},
             { data: { id: 'cs151', label: 'CS 151\nCryptography', type: 'elect' }},
 
-            /* EDGES */
+            /* ================= EDGES ================= */
             { data: { source: 'cs11', target: 'cs15' }},
             { data: { source: 'cs15', target: 'cs40' }},
             { data: { source: 'cs15', target: 'cs160' }},
@@ -81,7 +85,10 @@ document.addEventListener('DOMContentLoaded', function(){
                     'color': '#fff',
                     'width': 100,
                     'height': 60,
-                    'font-size': 10
+                    'font-size': 11,
+                    /* Updated Fonts */
+                    'font-family': '"Montserrat", "Proxima Nova", sans-serif',
+                    'font-weight': '700'
                 }
             },
             { selector: 'node[type="core"]', style: { 'background-color': '#3e8ede' }},
@@ -127,6 +134,8 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
+    /* ================= INTERACTIONS ================= */
+
     cy.on('mouseover', 'node', e => {
         e.target.addClass('hovered');
         e.target.connectedEdges().addClass('hovered');
@@ -147,7 +156,10 @@ document.addEventListener('DOMContentLoaded', function(){
         neighbors.edgesWith(neighbors).removeClass('dimmed').addClass('hovered');
     });
 
-    cy.on('tap', e => { if (e.target === cy) reset(); });
+    cy.on('tap', e => { 
+        if (e.target === cy) reset(); 
+    });
+
     document.getElementById('reset-btn').addEventListener('click', reset);
 
     function reset() {
