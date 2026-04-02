@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tufts CS Curriculum (Comprehensive DAG)</title>
+
+<script src="https://unpkg.com/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
+<script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: system-ui;
+    background: #f4f6f8;
+}
+
+h1 {
+    text-align: center;
+    margin: 12px;
+    font-weight: 600;
+}
+
+#cy {
+    width: 100%;
+    height: 92vh;
+}
+
+#legend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Tufts CS Curriculum Pathways (Comprehensive DAG)</h1>
+
+<div id="legend">
+<b>Legend</b><br>
+Blue = Core<br>
+Brown = Math<br>
+Tan = Electives<br>
+Dashed = Optional paths<br>
+Hover = highlight dependencies
+</div>
+
+<div id="cy"></div>
+
+<script>
+cytoscape.use(cytoscapeDagre);
+
+const cy = cytoscape({
+container: document.getElementById('cy'),
+
+elements: [
+
+/* ================= CORE ================= */
+{ data: { id: 'cs11', label: 'CS 11\nIntro', type: 'core' }},
+{ data: { id: 'cs15', label: 'CS 15\nData Structures', type: 'core' }},
+{ data: { id: 'cs40', label: 'CS 40\nMachine', type: 'core' }},
+{ data: { id: 'cs160', label: 'CS 160\nAlgorithms', type: 'core' }},
+{ data: { id: 'cs105', label: 'CS 105\nLanguages', type: 'core' }},
+{ data: { id: 'cs170', label: 'CS 170\nTheory', type: 'core' }},
+{ data: { id: 'cs97', label: 'CS 97\nCapstone I', type: 'core' }},
+{ data: { id: 'cs98', label: 'CS 98\nCapstone II', type: 'core' }},
+
+/* ================= MATH ================= */
+{ data: { id: 'cs61', label: 'CS 61\nDiscrete', type: 'math' }},
+{ data: { id: 'calc1', label: 'Calc I', type: 'math' }},
+{ data: { id: 'calc2', label: 'Calc II', type: 'math' }},
+{ data: { id: 'lin', label: 'Linear Algebra\n(Optional)', type: 'optional' }},
+
+/* ================= SYSTEMS ================= */
+{ data: { id: 'cs111', label: 'CS 111\nOperating Systems', type: 'elect' }},
+{ data: { id: 'cs118', label: 'CS 118\nCompilers', type: 'elect' }},
+{ data: { id: 'cs121', label: 'CS 121\nDistributed Systems', type: 'elect' }},
+{ data: { id: 'cs133', label: 'CS 133\nParallel Computing', type: 'elect' }},
+{ data: { id: 'cs139', label: 'CS 139\nAdvanced Systems', type: 'elect' }},
+
+/* ================= AI / DATA ================= */
+{ data: { id: 'cs135', label: 'CS 135\nMachine Learning', type: 'elect' }},
+{ data: { id: 'cs136', label: 'CS 136\nArtificial Intelligence', type: 'elect' }},
+{ data: { id: 'cs138', label: 'CS 138\nData Science', type: 'elect' }},
+{ data: { id: 'cs142', label: 'CS 142\nDeep Learning', type: 'elect' }},
+{ data: { id: 'cs145', label: 'CS 145\nNLP', type: 'elect' }},
+
+/* ================= THEORY ================= */
+{ data: { id: 'cs131', label: 'CS 131\nTheory Seminar', type: 'elect' }},
+{ data: { id: 'cs132', label: 'CS 132\nAdvanced Algorithms', type: 'elect' }},
+{ data: { id: 'cs134', label: 'CS 134\nComputability', type: 'elect' }},
+
+/* ================= GRAPHICS / HCI ================= */
+{ data: { id: 'cs140', label: 'CS 140\nComputer Graphics', type: 'elect' }},
+{ data: { id: 'cs141', label: 'CS 141\nHCI', type: 'elect' }},
+{ data: { id: 'cs143', label: 'CS 143\nVisualization', type: 'elect' }},
+
+/* ================= NETWORKS / SECURITY ================= */
+{ data: { id: 'cs116', label: 'CS 116\nNetworks', type: 'elect' }},
+{ data: { id: 'cs150', label: 'CS 150\nCybersecurity', type: 'elect' }},
+{ data: { id: 'cs151', label: 'CS 151\nCryptography', type: 'elect' }},
+
+/* ================= CORE EDGES ================= */
+{ data: { source: 'cs11', target: 'cs15' }},
+{ data: { source: 'cs15', target: 'cs40' }},
+{ data: { source: 'cs15', target: 'cs160' }},
+{ data: { source: 'cs61', target: 'cs160' }},
+{ data: { source: 'cs40', target: 'cs105' }},
+{ data: { source: 'cs160', target: 'cs170' }},
+{ data: { source: 'cs105', target: 'cs97' }},
+{ data: { source: 'cs170', target: 'cs97' }},
+{ data: { source: 'cs97', target: 'cs98' }},
+
+/* ================= SYSTEMS EDGES ================= */
+{ data: { source: 'cs40', target: 'cs111' }},
+{ data: { source: 'cs111', target: 'cs118' }},
+{ data: { source: 'cs111', target: 'cs121' }},
+{ data: { source: 'cs121', target: 'cs133' }},
+{ data: { source: 'cs133', target: 'cs139' }},
+
+/* ================= AI EDGES ================= */
+{ data: { source: 'cs160', target: 'cs135' }},
+{ data: { source: 'cs160', target: 'cs136' }},
+{ data: { source: 'cs135', target: 'cs142' }},
+{ data: { source: 'cs135', target: 'cs138' }},
+{ data: { source: 'cs142', target: 'cs145' }},
+
+/* ================= THEORY EDGES ================= */
+{ data: { source: 'cs170', target: 'cs131' }},
+{ data: { source: 'cs170', target: 'cs132' }},
+{ data: { source: 'cs170', target: 'cs134' }},
+
+/* ================= GRAPHICS EDGES ================= */
+{ data: { source: 'cs160', target: 'cs140' }},
+{ data: { source: 'cs140', target: 'cs143' }},
+{ data: { source: 'cs15', target: 'cs141' }},
+
+/* ================= NETWORK EDGES ================= */
+{ data: { source: 'cs15', target: 'cs116' }},
+{ data: { source: 'cs116', target: 'cs150' }},
+{ data: { source: 'cs150', target: 'cs151' }}
+
+],
+
+style: [
+
+{
+selector: 'node',
+style: {
+'label': 'data(label)',
+'text-wrap': 'wrap',
+'text-valign': 'center',
+'text-halign': 'center',
+'color': '#fff',
+'width': 100,
+'height': 75,
+'font-size': 10
+}
+},
+
+{ selector: 'node[type="core"]', style: { 'background-color': '#3e8ede' }},
+{ selector: 'node[type="math"]', style: { 'background-color': '#8b5a2b' }},
+{ selector: 'node[type="elect"]', style: { 'background-color': '#a67c52' }},
+{ selector: 'node[type="optional"]', style: { 'background-color': '#bbb' }},
+
+{
+selector: 'edge',
+style: {
+        'width': 2,
+        'line-color': '#888',
+        'target-arrow-color': '#888',
+        'target-arrow-shape': 'triangle',
+        'curve-style': 'bezier'
+}
+},
+
+{
+selector: '.hovered',
+style: {
+        'background-color': '#f4c542',
+        'color': '#000',
+        'border-width': 3,
+        'border-color': '#ff8c00'
+}
+},
+{
+selector: 'edge.hovered',
+style: {
+        'line-color': '#ff8c00',
+        'target-arrow-color': '#ff8c00',
+        'width': 3
+}
+}
+
+],
+
+layout: {
+name: 'dagre',
+rankDir: 'TB',
+nodeSep: 55,
+rankSep: 85
+}
+});
+
+/* HOVER */
+cy.on('mouseover', 'node', e => {
+        e.target.addClass('hovered');
+        e.target.connectedEdges().addClass('hovered');
+});
+cy.on('mouseout', 'node', e => {
+        e.target.removeClass('hovered');
+        e.target.connectedEdges().removeClass('hovered');
+});
+</script>
+
+</body>
+</html>
