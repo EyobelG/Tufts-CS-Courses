@@ -1,9 +1,10 @@
+/* GLOBAL STYLES */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f4f6f8;
     overflow: hidden;
     position: relative; 
@@ -29,7 +30,7 @@ h1 {
 /* THE GRAPH CONTAINER */
 #cy {
     position: absolute;
-    top: 60px; 
+    top: 60px; /* Starts exactly below the header */
     bottom: 0;
     left: 0;
     right: 0;
@@ -38,7 +39,7 @@ h1 {
     background-color: transparent; 
 }
 
-/* THE LEGEND BOX */
+/* THE LEGEND BOX (Top Right) */
 #legend-container {
     position: absolute;
     top: 75px; 
@@ -55,20 +56,21 @@ h1 {
     backdrop-filter: blur(5px);
     border: 1px solid #e0e0e0;
     width: 160px;
-    /* Hover to Reveal Logic */
-    opacity: 0.2;
+    
+    /* GHOST MODE */
+    opacity: 0.1 !important;
+    pointer-events: none !important;
     transform: scale(0.95);
     transition: all 0.3s ease;
-    pointer-events: none; /* Allows clicking nodes underneath */
 }
 
 #legend-container:hover #legend-content {
-    opacity: 1;
+    opacity: 1 !important;
+    pointer-events: auto !important;
     transform: scale(1);
-    pointer-events: auto;
 }
 
-/* THE INFO PANEL (Course Details) */
+/* THE INFO PANEL (Bottom Left) */
 #info-panel {
     position: absolute;
     bottom: 25px;
@@ -81,19 +83,39 @@ h1 {
     z-index: 100;
     border-left: 6px solid #3e8ede;
     backdrop-filter: blur(5px);
-    /* Hover to Reveal Logic - added so it stays out of the way */
-    opacity: 0.2;
+    
+    /* GHOST MODE */
+    opacity: 0.1 !important;
+    pointer-events: none !important;
     transition: all 0.3s ease;
-    pointer-events: none; 
 }
 
 #info-panel:hover {
-    opacity: 1;
-    pointer-events: auto;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
-/* UI ELEMENTS */
-.dot { height: 10px; width: 10px; display: inline-block; border-radius: 50%; margin-right: 8px; }
+/* UI CONTENT STYLES */
+#info-panel h3 { 
+    margin-top: 0; 
+    color: #3e8ede; 
+    font-size: 1.1rem;
+}
+
+#info-panel p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.dot { 
+    height: 10px; 
+    width: 10px; 
+    display: inline-block; 
+    border-radius: 50%; 
+    margin-right: 8px; 
+}
+
 .core { background: #3e8ede; }
 .math { background: #8b5a2b; }
 .elect { background: #a67c52; }
