@@ -1,42 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tufts CS Curriculum (Comprehensive DAG)</title>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f6f8;
+    overflow: hidden;
+}
+
+header {
+    background: white;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 1.4rem;
+    color: #2c3e50;
+}
+
+#cy {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Legend - Hover to Reveal */
+#legend-container {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    z-index: 100;
+}
+
+#legend-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 13px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid #e0e0e0;
+    width: 160px;
     
-    <script src="https://unpkg.com/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
-    <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
-    <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    /* Fade effect when not in use */
+    opacity: 0.3;
+    transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none; /* Allows clicking nodes underneath */
+}
 
-    <header>
-        <h1>Tufts CS Curriculum Pathways</h1>
-    </header>
+#legend-container:hover #legend-content {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto; /* Becomes clickable when hovered */
+}
 
-    <div id="legend-container">
-        <div id="legend-content">
-            <b>Legend</b><br>
-            <span class="dot core"></span> Blue = Core<br>
-            <span class="dot math"></span> Brown = Math<br>
-            <span class="dot elect"></span> Tan = Electives<br>
-            <span class="dot opt"></span> Grey = Optional<br>
-            <hr>
-            <small>Click node to pin path<br>Hover to highlight<br>Scroll to zoom</small>
-            <button id="reset-btn">Reset View</button>
-        </div>
-    </div>
+/* Info Panel */
+#info-panel {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 100;
+    border-left: 6px solid #3e8ede;
+    pointer-events: auto;
+}
 
-    <div id="info-panel">
-        <h3 id="course-title">Select a Course</h3>
-        <p id="course-desc">Click on any node to see its prerequisites and subsequent pathways.</p>
-    </div>
+#info-panel h3 { margin-top: 0; color: #3e8ede; }
 
-    <div id="cy"></div>
+.dot {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 8px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+.core { background: #3e8ede; }
+.math { background: #8b5a2b; }
+.elect { background: #a67c52; }
+.opt { background: #bbb; }
+
+#reset-btn {
+    margin-top: 12px;
+    width: 100%;
+    cursor: pointer;
+    background: #3e8ede;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+#reset-btn:hover { background: #2970b8; }
