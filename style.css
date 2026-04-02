@@ -20,9 +20,10 @@ header {
     height: 100px; /* Increased for logo styling */
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Stacks the title and subtitle vertically */
+    justify-content: center; /* Centers vertically */
+    align-items: center;    /* Centers horizontally */
+    text-align: center;
 }
 
 /* TUFTS LOGO FONT STYLE */
@@ -35,6 +36,7 @@ h1 {
     margin: 0;
     text-transform: uppercase;
     text-align: center;
+    width: 100%;
 }
 
 /* GRAPH CONTAINER */
