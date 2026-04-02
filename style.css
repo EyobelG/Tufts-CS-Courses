@@ -1,10 +1,9 @@
-/* GLOBAL STYLES */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     background: #f4f6f8;
     overflow: hidden;
     position: relative; 
@@ -27,19 +26,16 @@ h1 {
     color: #2c3e50;
 }
 
-/* THE GRAPH CONTAINER */
 #cy {
     position: absolute;
-    top: 60px; /* Starts exactly below the header */
+    top: 60px; 
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 1;
-    display: block;
     background-color: transparent; 
 }
 
-/* THE LEGEND BOX (Top Right) */
 #legend-container {
     position: absolute;
     top: 75px; 
@@ -56,8 +52,6 @@ h1 {
     backdrop-filter: blur(5px);
     border: 1px solid #e0e0e0;
     width: 160px;
-    
-    /* GHOST MODE */
     opacity: 0.1 !important;
     pointer-events: none !important;
     transform: scale(0.95);
@@ -68,44 +62,6 @@ h1 {
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: scale(1);
-}
-
-/* THE INFO PANEL (Bottom Left) */
-#info-panel {
-    position: absolute;
-    bottom: 25px;
-    left: 25px;
-    width: 260px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    z-index: 100;
-    border-left: 6px solid #3e8ede;
-    backdrop-filter: blur(5px);
-    
-    /* GHOST MODE */
-    opacity: 0.1 !important;
-    pointer-events: none !important;
-    transition: all 0.3s ease;
-}
-
-#info-panel:hover {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-/* UI CONTENT STYLES */
-#info-panel h3 { 
-    margin-top: 0; 
-    color: #3e8ede; 
-    font-size: 1.1rem;
-}
-
-#info-panel p {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-    color: #444;
 }
 
 .dot { 
@@ -134,6 +90,6 @@ h1 {
     transition: background 0.2s;
 }
 
-#reset-btn:hover {
-    background: #2970b8;
+#reset-btn:hover { 
+    background: #2970b8; 
 }
